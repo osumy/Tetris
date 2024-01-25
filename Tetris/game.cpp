@@ -7,19 +7,19 @@
 #include "menu.h"
 #include "gameMenu.h"
 
-#define WHITE 7
-#define CYAN 11
-#define DARK_BLUE 1
-#define ORANGE 6
-#define YELLOW 14
-#define GREEN 10
-#define PURPLE 5
-#define RED 4
-#define	GRAY 8
-
 using namespace std;
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+const int WHITE = 7;
+const int CYAN = 11;
+const int DARK_BLUE = 1;
+const int ORANGE = 6;
+const int YELLOW = 14;
+const int GREEN = 10;
+const int PURPLE = 5;
+const int RED = 4;
+const int GRAY = 8;
 
 struct GameSettings
 {
@@ -41,13 +41,13 @@ struct Location
 /////////////////////////////////
 
 GameSettings getGameSettings();
-void makeSolidFor(bool& canShiftD);
 void getConsoleSize(int& Width, int& Height);
 void pauseMenu();
 void loading();
 void game();
 void load();
 void makeSolid();
+void makeSolidFor(bool& canShiftD);
 void fall();
 void shiftR();
 void shiftL();
@@ -62,6 +62,7 @@ void printMainBoarder();
 void printPoints();
 void printNextShape();
 void fadeRow();
+void makeShadow();
 
 int** board; // main game board
 int** shape; // shape
@@ -76,11 +77,12 @@ int level;
 string name;
 bool remainInGame = true;
 bool exitGame = false;
+int points = 0;
 
 
 void loading() {
 	printMainBoarder();
-
+	// print blocks one by one
 	setCursorLoc(6, 3 + h);
 	for (int i = 0; i < h; i++) {
 		setCursorLoc(6, 3 + h - i);
@@ -89,7 +91,7 @@ void loading() {
 			Sleep(5);
 		}
 	}
-
+	// fade blocks one by one
 	setCursorLoc(6, 3 + h);
 	for (int i = 0; i < h; i++) {
 		setCursorLoc(6, 3 + h - i);
@@ -116,7 +118,7 @@ void game() {
 		load();
 		loading();
 	}
-
+	
 	else {
 		GameSettings gs = getGameSettings();
 
@@ -194,6 +196,8 @@ void game() {
 				}
 			}
 		}
+		setCursorLoc(11 + w * 2, 10);
+		cout << points;
 
 		if (_kbhit()) {
 			char choice = _getch();
@@ -232,8 +236,9 @@ void game() {
 		}
 
 		counter++;
-		Sleep(50);
+		Sleep(20);
 	}
+	
 	system("cls");
 	setCursorLoc(0, 0);
 	gameSave();
@@ -1360,4 +1365,8 @@ void fadeRow() {
 			}
 		}
 	}
+}
+
+void makeShdow() {
+
 }
