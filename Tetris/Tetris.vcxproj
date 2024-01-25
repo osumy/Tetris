@@ -139,9 +139,6 @@
     <ClInclude Include="leaderboard.h" />
     <ClInclude Include="menu.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\..\..\..\..\Users\amira\source\repos\Tetris (AAA Edition)\Tetris (AAA Edition)\leader.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

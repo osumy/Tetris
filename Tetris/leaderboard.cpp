@@ -81,10 +81,11 @@ void printLB()
 		setCursorLoc(90, 5 + i);
 		cout << recs[i].m << "x" << recs[i].n;
 
-		setCursorLoc(90, 5 + i);
+		setCursorLoc(109, 5 + i);
 		cout << recs[i].level;
 	}
+
 	setCursorLoc(3, 5 + recNum + 2);
-	cout << "\nPress any key to continue...";
+	cout << "Press any key to continue...";
 	_getch();
 }
