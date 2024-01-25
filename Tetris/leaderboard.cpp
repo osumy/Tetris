@@ -2,6 +2,7 @@
 #include <fstream>
 #include <conio.h>
 #include <String>
+#include "menu.h"
 
 using namespace std;
 
@@ -9,6 +10,9 @@ struct Record {
 	string user;
 	int point;
 	int time;
+	int m; // rows
+	int n; // columns
+	int level;
 };
 
 void saveLB()
@@ -20,9 +24,9 @@ int recordCounter()
 {
 	ifstream scores("leader.txt", ios::in);
 	string a;
-	int b, c;
+	int b, c, d, e, f;
 	int i = 0;
-	while (scores >> a >> b >> c)
+	while (scores >> a >> b >> c >> d >> e >> f)
 	{
 		i++;
 	}
@@ -32,50 +36,55 @@ int recordCounter()
 
 void printLB()
 {
+	system("cls");
+	printBorder();
+
 	int recNum = recordCounter();
 	Record* recs = new Record[recNum];
 
 	ifstream scores("leader.txt", ios::in);
 	int i = 0;
-	while (scores >> recs[i].user >> recs[i].point >> recs[i].time)
+	while (scores >> recs[i].user >> recs[i].point >> recs[i].time >> recs[i].m >> recs[i].n >> recs[i].level)
 	{
 		i++;
 	}
-	scores.close();
+	
+	setCursorLoc(3, 2);
+	cout << "Name";
 
-	system("cls");
-	for (int i = 0; i < 25; i++) {
-		cout << "*";
-	}
-	cout << endl;
-
-	cout << " Name";
-	for (int i = 0; i < 35; i++) {
-		cout << " ";
-	}
-
+	setCursorLoc(43, 2);
 	cout << "Score";
-	for (int i = 0; i < 15; i++) {
-		cout << " ";
-	}
 
+	setCursorLoc(65, 2);
 	cout << "Time";
-	cout << endl;
+
+	setCursorLoc(90, 2);
+	cout << "m x n";
+
+	setCursorLoc(109, 2);
+	cout << "Level";
+
+	setCursorLoc(3, 3);
+	for (int i = 0; i < Width - 6; i++)
+		cout << "\u2505";
 
 	for (int i = 0; i < recNum; i++) {
-		cout << " " << recs[i].user;
-		int len = recs[i].user.length();
-		for (int i = 0; i < 39 - len; i++) {
-			cout << " ";
-		}
+		setCursorLoc(3, 5+i);
+		cout << recs[i].user;
+
+		setCursorLoc(43, 5 + i);
 		cout << recs[i].point;
-		len = to_string(recs[i].point).length();
-		for (int i = 0; i < 20 - len; i++) {
-			cout << " ";
-		}
+
+		setCursorLoc(65, 5 + i);
 		cout << recs[i].time;
-		cout << endl;
+
+		setCursorLoc(90, 5 + i);
+		cout << recs[i].m << "x" << recs[i].n;
+
+		setCursorLoc(90, 5 + i);
+		cout << recs[i].level;
 	}
+	setCursorLoc(3, 5 + recNum + 2);
 	cout << "\nPress any key to continue...";
 	_getch();
 }
