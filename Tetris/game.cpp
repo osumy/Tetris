@@ -61,6 +61,7 @@ void gameSave();
 void printMainBoarder();
 void printPoints();
 void printNextShape();
+void fadeRow();
 
 int** board; // main game board
 int** shape; // shape
@@ -980,30 +981,7 @@ void makeSolid() {
 		}
 	}
 
-	for (int i = h - 1; i >= 0; i--) {
-		bool is_complete = true;
-		for (int j = 0; j < w; j++) {
-			if (board[i][j] != 2) {
-				is_complete = false;
-				break;
-			}
-		}
-
-		if (is_complete) {
-			for (int j = 0; j < w; j++) {
-				board[i][j] = 0;
-			}
-
-			for (int k = i - 1; k >= 0; k--) {
-				for (int j = 0; j < w; j++) {
-					if (board[k][j] == 2 && board[k + 1][j] == 0) {
-						swap(board[k][j], board[k + 1][j]);
-						swap(colors[k][j], colors[k + 1][j]);
-					}
-				}
-			}
-		}
-	}
+	fadeRow();
 }
 
 void insertShape() {
@@ -1340,6 +1318,45 @@ void printNextShape() {
 			}
 			else {
 				cout << "  ";
+			}
+		}
+	}
+}
+
+void fadeRow() {
+	int in_row = 0;
+	for (int i = h - 1; i >= 0; i--) {
+		bool is_full = true;
+		for (int j = 0; j < w; j++) {
+			if (board[i][j] != 2) {
+				is_full = false;
+				break;
+			}
+		}
+
+		if (is_full) {
+			setCursorLoc(6, 4 + i);
+			SetConsoleTextAttribute(hConsole, WHITE);
+			for (int j = 0; j < w; j++) {
+				board[i][j] = 0;
+				cout << "\u2588\u2588";
+				Sleep(5);
+			}
+			
+			in_row++;
+		}
+		else {
+			if (in_row > 0) {
+				for (int k = i; k >= 0; k--) {
+					for (int j = 0; j < w; j++) {
+						if (board[k][j] == 2) {
+							swap(board[k][j], board[k + in_row][j]);
+							swap(colors[k][j], colors[k + in_row][j]);
+						}
+					}
+				}
+
+				in_row = 0;
 			}
 		}
 	}
