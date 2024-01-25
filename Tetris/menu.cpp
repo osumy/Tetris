@@ -60,6 +60,7 @@ void mainMenu() {
             move = _getch();
         }
 
+        PlaySound(TEXT("click.wav"), NULL, SND_ASYNC | SND_FILENAME);
         clearHoverMarker(choice);
         switch (move)
         {
