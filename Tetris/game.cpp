@@ -58,6 +58,9 @@ void insertShape();
 void shapeRand(int** shape, Location& cm, int& index);
 int getColor(int index);
 void gameSave();
+void printMainBoarder();
+void printPoints();
+void printNextShape();
 
 int** board; // main game board
 int** shape; // shape
@@ -73,36 +76,16 @@ string name;
 bool remainInGame = true;
 bool exitGame = false;
 
+
 void loading() {
-	system("cls");
-
-	setCursorLoc(5, 3);
-	cout << "\u2554";
-	for (int i = 0; i < w * 2; i++) {
-		cout << "\u2550";
-	}
-	cout << "\u2557";
-
-	for (int i = 0; i < h; i++) {
-		setCursorLoc(5, 4 + i);
-		cout << "\u2551";
-		setCursorLoc(6 + w * 2, 4 + i);
-		cout << "\u2551";
-	}
-
-	setCursorLoc(5, 4 + h);
-	cout << "\u255A";
-	for (int i = 0; i < w * 2; i++) {
-		cout << "\u2550";
-	}
-	cout << "\u255D";
+	printMainBoarder();
 
 	setCursorLoc(6, 3 + h);
 	for (int i = 0; i < h; i++) {
 		setCursorLoc(6, 3 + h - i);
 		for (int j = 0; j < w; j++) {
 			cout << "\u2588" << "\u2588";
-			Sleep(8);
+			Sleep(5);
 		}
 	}
 
@@ -111,7 +94,7 @@ void loading() {
 		setCursorLoc(6, 3 + h - i);
 		for (int j = 0; j < w; j++) {
 			cout << "  ";
-			Sleep(7);
+			Sleep(5);
 		}
 	}
 
@@ -187,48 +170,11 @@ void game() {
 		shapeRand(shape, CM, shapeIndex);
 		shapeRand(newShape, newCM, newShapeIndex);
 		insertShape();
-	}
-	setCursorLoc(9 + w * 2, 3);
-	cout << "\u2554";
-	for (int i = 0; i < 8; i++) {
-		cout << "\u2550";
-	}
-	cout << "\u2557";
 
-	for (int i = 0; i < 4; i++) {
-		setCursorLoc(9 + w * 2, 4 + i);
-		cout << "\u2551";
-		setCursorLoc(18 + w * 2, 4 + i);
-		cout << "\u2551";
+		printPoints();
+		printNextShape();
 	}
 
-	setCursorLoc(9 + w * 2, 8);
-	cout << "\u255A";
-	for (int i = 0; i < 8; i++) {
-		cout << "\u2550";
-	}
-	cout << "\u255D";
-
-	setCursorLoc(9 + w * 2, 10);
-	cout << "\u2554";
-	for (int i = 0; i < 8; i++) {
-		cout << "\u2550";
-	}
-	cout << "\u2557";
-
-	for (int i = 0; i < 4; i++) {
-		setCursorLoc(9 + w * 2, 11 + i);
-		cout << "\u2551";
-		setCursorLoc(18 + w * 2, 11 + i);
-		cout << "\u2551";
-	}
-
-	setCursorLoc(9 + w * 2, 15);
-	cout << "\u255A";
-	for (int i = 0; i < 8; i++) {
-		cout << "\u2550";
-	}
-	cout << "\u255D";
 	while (remainInGame) {
 		setCursorLoc(6, 4);
 		for (int i = 0; i < h; i++) {
@@ -310,6 +256,7 @@ void makeSolidFor(bool& canShiftD) {
 				shapeRand(newShape, newCM, newShapeIndex);
 				canShiftD = false;
 				rotateIndex = 0;
+				printNextShape();
 				return;
 			}
 		}
@@ -1032,6 +979,31 @@ void makeSolid() {
 			}
 		}
 	}
+
+	for (int i = h - 1; i >= 0; i--) {
+		bool is_complete = true;
+		for (int j = 0; j < w; j++) {
+			if (board[i][j] != 2) {
+				is_complete = false;
+				break;
+			}
+		}
+
+		if (is_complete) {
+			for (int j = 0; j < w; j++) {
+				board[i][j] = 0;
+			}
+
+			for (int k = i - 1; k >= 0; k--) {
+				for (int j = 0; j < w; j++) {
+					if (board[k][j] == 2 && board[k + 1][j] == 0) {
+						swap(board[k][j], board[k + 1][j]);
+						swap(colors[k][j], colors[k + 1][j]);
+					}
+				}
+			}
+		}
+	}
 }
 
 void insertShape() {
@@ -1280,4 +1252,95 @@ void load() {
 
 	x = (w - 4) / 2;
 	shapeRand(newShape, newCM, newShapeIndex);
+}
+
+void printMainBoarder() {
+	SetConsoleTextAttribute(hConsole, WHITE);
+
+	system("cls");
+
+	setCursorLoc(5, 3);
+	cout << "\u2554";
+	for (int i = 0; i < w * 2; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u2557";
+
+	for (int i = 0; i < h; i++) {
+		setCursorLoc(5, 4 + i);
+		cout << "\u2551";
+		setCursorLoc(6 + w * 2, 4 + i);
+		cout << "\u2551";
+	}
+
+	setCursorLoc(5, 4 + h);
+	cout << "\u255A";
+	for (int i = 0; i < w * 2; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u255D";
+}
+
+void printPoints() {
+	SetConsoleTextAttribute(hConsole, WHITE);
+
+	setCursorLoc(9 + w * 2, 3);
+	cout << "\u2554";
+	for (int i = 0; i < 10; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u2557";
+
+	for (int i = 0; i < 4; i++) {
+		setCursorLoc(9 + w * 2, 4 + i);
+		cout << "\u2551";
+		setCursorLoc(20 + w * 2, 4 + i);
+		cout << "\u2551";
+	}
+
+	setCursorLoc(9 + w * 2, 8);
+	cout << "\u255A";
+	for (int i = 0; i < 10; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u255D";
+}
+
+void printNextShape() {
+	SetConsoleTextAttribute(hConsole, WHITE);
+
+	setCursorLoc(9 + w * 2, 10);
+	cout << "\u2554";
+	for (int i = 0; i < 10; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u2557";
+
+	for (int i = 0; i < 4; i++) {
+		setCursorLoc(9 + w * 2, 11 + i);
+		cout << "\u2551";
+		setCursorLoc(20 + w * 2, 11 + i);
+		cout << "\u2551";
+	}
+
+	setCursorLoc(9 + w * 2, 15);
+	cout << "\u255A";
+	for (int i = 0; i < 10; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u255D";
+
+	setCursorLoc(11 + w * 2, 12);
+	for (int i = 0; i < 2; i++) {
+		setCursorLoc(11 + w * 2, 12 + i);
+		for (int j = 0; j < 4; j++) {
+			if (newShape[i][j] == 1) {
+				SetConsoleTextAttribute(hConsole, getColor(newShapeIndex));
+				cout << "\u2588\u2588";
+			}
+			else {
+				cout << "  ";
+			}
+		}
+	}
 }
