@@ -246,7 +246,7 @@ void pressEnter(int choice) {
         game();
         break;
     case 6:
-        //printLB();
+        printLB();
         break;
     case 9:
         printHTP();
