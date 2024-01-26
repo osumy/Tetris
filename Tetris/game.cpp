@@ -5,6 +5,7 @@
 #include <ctime>
 #include <fstream>
 #include <Windows.h>
+#include "leaderboard.h"
 #include "menu.h"
 #include "gameMenu.h"
 
@@ -35,6 +36,15 @@ struct Location
 {
 	int i; // row
 	int j; // column
+};
+
+struct Records {
+	string user;
+	int point;
+	int time;
+	int m; // rows
+	int n; // columns
+	int level;
 };
 
 /////////////////////////////////
@@ -1516,8 +1526,46 @@ bool gameOver() {
 }
 
 void saveRecord() {
-	fstream saveRec("leader.txt", ios::app);
-	saveRec << endl << name << " " << points << " " << now << " " << w << " " << h << " " << level;
+	int recNum = recordCounter();
+	Records* recs = new Records[recNum];
+
+	ifstream scores("leader.txt", ios::in);
+	int i = 0;
+	while (scores >> recs[i].user >> recs[i].point >> recs[i].time >> recs[i].m >> recs[i].n >> recs[i].level)
+	{
+		i++;
+	}
+	scores.close();
+
+	for (int i = 0; i < recNum; i++) {
+		if (recs[i].user == name) {
+			if (recs[i].point < points) {
+				recs[i].user = name;
+				recs[i].point = points;
+				recs[i].time = now;
+				recs[i].n = w;
+				recs[i].m = h;
+				recs[i].level = level;
+			}
+			else if (recs[i].point == points) {
+				if (recs[i].time > now) {
+					recs[i].user = name;
+					recs[i].point = points;
+					recs[i].time = now;
+					recs[i].n = w;
+					recs[i].m = h;
+					recs[i].level = level;
+				}
+			}
+		}
+	}
+
+	fstream saveRec("leader.txt", ios::out);
+	for (int i = 0; i < recNum; i++) {
+		if (i != 0)
+			saveRec << endl;
+		saveRec << recs[i].user << " " << recs[i].point << " " << recs[i].time << " " << recs[i].n << " " << recs[i].m << " " << recs[i].level;
+	}
 	saveRec.close();
 }
 

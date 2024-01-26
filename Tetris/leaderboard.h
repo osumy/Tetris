@@ -1,4 +1,4 @@
 #pragma once
 
-void saveLB();
+int recordCounter();
 void printLB();
