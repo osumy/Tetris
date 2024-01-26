@@ -87,6 +87,8 @@ bool gameOverBool = false;
 int points = 0;
 int rows = 0, rowsToShow;
 int now = 0;
+int duration = 0;
+int lastGameTime = 0;
 
 void loading() {
 	printMainBoarder();
@@ -214,9 +216,11 @@ void game() {
 				}
 			}
 		}
-		
-		now = time(NULL) - start;
 
+		duration = time(NULL) - start;
+
+		now = duration + lastGameTime;
+		
 		SetConsoleTextAttribute(hConsole, WHITE);
 		setCursorLoc(11 + w * 2, 4);
 		cout << "Time: ";
@@ -1152,7 +1156,7 @@ int getColor(int index) {
 
 void gameSave() {
 	ofstream save("save.txt", ios::out);
-	save << name << endl << w << endl << h << endl << level << endl;
+	save << name << endl << points << endl << now << endl << w << endl << h << endl << level << endl;
 	save << shapeIndex << endl << rotateIndex << endl << CM.i << endl << CM.j << endl;
 	for (int i = 0; i <= h; i++) {
 		for (int j = 0; j < w; j++) {
@@ -1179,6 +1183,16 @@ void load() {
 
 	// name
 	getline(loadGame, name);
+
+	// scores
+	string stringPoints;
+	getline(loadGame, stringPoints);
+	points = stoi(stringPoints);
+
+	// last game time
+	string stringLGT;
+	getline(loadGame, stringLGT);
+	lastGameTime = stoi(stringLGT);
 
 	// game board width
 	string stringW;
