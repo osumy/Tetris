@@ -289,6 +289,7 @@ void game() {
 	
 	system("cls");
 	setCursorLoc(0, 0);
+	PlaySound(TEXT("main.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	if (!gameOverBool) {
 		gameSave();
 		if (exitGame)
@@ -1590,5 +1591,4 @@ void printGameOver() {
 	system("cls");
 	setCursorLoc(0,0);
 	SetConsoleTextAttribute(hConsole, WHITE);
-	PlaySound(TEXT("main.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
