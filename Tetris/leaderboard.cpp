@@ -45,7 +45,15 @@ void printLB()
 	system("cls");
 	printBorder();
 
-	int recNum = recordCounter();
+	int recNum = 0;
+	recNum += recordCounter();
+	if (recNum == 0) {
+		setCursorLoc(3, 2);
+		cout << "There is no file...";
+		Sleep(2000);
+		system("cls");
+		return;
+	}
 	Record* recs = new Record[recNum];
 
 	ifstream scores("leader.txt", ios::in);

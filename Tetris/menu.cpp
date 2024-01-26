@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <cmath>
 #include <stdlib.h>
+#include <fstream>
 #include "game.h"
 #include "leaderboard.h"
 
@@ -237,13 +238,15 @@ void sleepyPrintHTP(string str, int time) {
 }
 
 void pressEnter(int choice) {
+    ifstream saveFile("save.txt", ios::in);
     switch (choice)
     {
     case 0:
         game();
         break;
     case 3:
-        continueGame = true;
+        if (saveFile)
+            continueGame = true;
         game();
         break;
     case 6:
@@ -258,6 +261,7 @@ void pressEnter(int choice) {
         break;
         break;
     }
+    saveFile.close();
     setCursorLoc(0, 0);
     buttonI = 0;
     printMainMenu();
