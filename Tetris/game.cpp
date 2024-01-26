@@ -78,7 +78,7 @@ string name;
 bool remainInGame = true;
 bool exitGame = false;
 int points = 0;
-
+int rows = 0;
 
 void loading() {
 	printMainBoarder();
@@ -178,6 +178,8 @@ void game() {
 		printNextShape();
 	}
 
+	int start = time(NULL);
+
 	while (remainInGame) {
 		setCursorLoc(6, 4);
 		for (int i = 0; i < h; i++) {
@@ -196,7 +198,17 @@ void game() {
 				}
 			}
 		}
-		setCursorLoc(11 + w * 2, 10);
+
+		makeShadow();
+
+		SetConsoleTextAttribute(hConsole, WHITE);
+		setCursorLoc(11 + w * 2, 4);
+		cout << "Time: ";
+		setCursorLoc(11 + w * 2, 5);
+		cout << time(NULL) - start;
+		setCursorLoc(11 + w * 2, 6);
+		cout << "Points: ";
+		setCursorLoc(11 + w * 2, 7);
 		cout << points;
 
 		if (_kbhit()) {
@@ -236,7 +248,7 @@ void game() {
 		}
 
 		counter++;
-		Sleep(20);
+		Sleep(60 - 4 * level);
 	}
 	
 	system("cls");
@@ -321,25 +333,29 @@ GameSettings getGameSettings() {
 }
 
 void fall() {
-	int min_dist = h;
+	bool shiftable = true;
 
-	for (int i = 0; i < w; i++) {
-		for (int j = 0; j < h; j++) {
-			if (board[i][j] == 1) {
-				for (int k = i + 1; k < h; k++) {
-					if (board[k][j] == 2) {
-						if (k - i < min_dist) {
-							min_dist = k - i;
-							break;
-						}
-					}
+	while (shiftable) {
+		shiftD();
+
+		for (int i = h - 1; i >= 0; i--) {
+			for (int j = 0; j < w; j++) {
+				if (board[i][j] == 1 && board[i + 1][j] == 2) {
+					shiftable = false;
+					break;
 				}
 			}
 		}
 	}
-
-	for (int i = 0; i < min_dist; i++) {
-		shiftD();
+	
+	SetConsoleTextAttribute(hConsole, getColor(shapeIndex));
+	for (int i = h - 1; i >= 0; i--) {
+		for (int j = 0; j < w; j++) {
+			if (board[i][j] == 1) {
+				setCursorLoc(6 + j * 2, 4 + i);
+				cout << "\u2588\u2588";
+			}
+		}
 	}
 }
 
@@ -410,6 +426,8 @@ void shiftD() {
 		}
 	}
 	CM.i++;
+
+	points += level;
 }
 
 
@@ -1313,9 +1331,13 @@ void printNextShape() {
 	}
 	cout << "\u255D";
 
-	setCursorLoc(11 + w * 2, 12);
+	SetConsoleTextAttribute(hConsole, WHITE);
+	setCursorLoc(11 + w * 2, 11);
+	cout << "Next: ";
+
+	setCursorLoc(11 + w * 2, 13);
 	for (int i = 0; i < 2; i++) {
-		setCursorLoc(11 + w * 2, 12 + i);
+		setCursorLoc(11 + w * 2, 13 + i);
 		for (int j = 0; j < 4; j++) {
 			if (newShape[i][j] == 1) {
 				SetConsoleTextAttribute(hConsole, getColor(newShapeIndex));
@@ -1360,13 +1382,47 @@ void fadeRow() {
 						}
 					}
 				}
-
+				
+				rows += in_row;
+				points += in_row * 100 * level;
 				in_row = 0;
 			}
 		}
 	}
+
+	if (rows >= 10) {
+		rows -= 10;
+		level++;
+	}
 }
 
-void makeShdow() {
+void makeShadow() {
+	int min_dist = h;
 
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; j < w; j++) {
+			if (board[i][j] == 1) {
+				for (int k = i + 1; k <= h; k++) {
+					if (board[k][j] == 2) {
+						if (k - i < min_dist) {
+							min_dist = k - i;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	SetConsoleTextAttribute(hConsole, GRAY);
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; j < w; j++) {
+			if (board[i][j] == 1) {
+				setCursorLoc(6 + j * 2, 3 + i + min_dist);
+				cout << "\u2588\u2588";
+			}
+		}
+	}
+
+	SetConsoleTextAttribute(hConsole, WHITE);
 }
