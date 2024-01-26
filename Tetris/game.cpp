@@ -63,6 +63,8 @@ void printPoints();
 void printNextShape();
 void fadeRow();
 void makeShadow();
+bool gameOver();
+void saveRecord();
 
 int** board; // main game board
 int** shape; // shape
@@ -77,6 +79,7 @@ int level;
 string name;
 bool remainInGame = true;
 bool exitGame = false;
+bool gameOverBool = false;
 int points = 0;
 int rows = 0;
 
@@ -253,9 +256,11 @@ void game() {
 	
 	system("cls");
 	setCursorLoc(0, 0);
-	gameSave();
-	if (exitGame)
-		exit(1);
+	if (!gameOverBool) {
+		gameSave();
+		if (exitGame)
+			exit(1);
+	}
 }
 
 void makeSolidFor(bool& canShiftD) {
@@ -270,6 +275,12 @@ void makeSolidFor(bool& canShiftD) {
 				CM.i = newCM.i;
 				CM.j = newCM.j;
 				shapeIndex = newShapeIndex;
+				if (gameOver()) {
+					saveRecord();
+					remainInGame = false;
+					gameOverBool = true;
+					return;
+				}
 				insertShape();
 				shapeRand(newShape, newCM, newShapeIndex);
 				canShiftD = false;
@@ -1425,4 +1436,20 @@ void makeShadow() {
 	}
 
 	SetConsoleTextAttribute(hConsole, WHITE);
+}
+bool gameOver() {
+	int J = 0;
+	for (int i = 0; i < 4; i++) {
+		for (int j = x; j < x + 4; j++) {
+			if (shape[i][J] == 1 && board[i][j] == 1)
+				return true;
+			J++;
+		}
+		J = 0;
+	}
+	return false;
+}
+void saveRecord() {
+	fstream saveRec("leader.txt", ios::app);
+	//saveRec << endl << name << " " << points << " " <<
 }
