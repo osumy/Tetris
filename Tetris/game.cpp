@@ -61,6 +61,7 @@ void gameSave();
 void printMainBoarder();
 void printPoints();
 void printNextShape();
+void printLevel();
 void fadeRow();
 void makeShadow();
 bool gameOver();
@@ -81,7 +82,7 @@ bool remainInGame = true;
 bool exitGame = false;
 bool gameOverBool = false;
 int points = 0;
-int rows = 0;
+int rows = 0, rowsToShow = 0;
 
 void loading() {
 	printMainBoarder();
@@ -179,6 +180,7 @@ void game() {
 
 		printPoints();
 		printNextShape();
+		printLevel();
 	}
 
 	int start = time(NULL);
@@ -204,7 +206,6 @@ void game() {
 		}
 
 		makeShadow();
-
 		now = time(NULL) - start;
 
 		SetConsoleTextAttribute(hConsole, WHITE);
@@ -1364,6 +1365,41 @@ void printNextShape() {
 	}
 }
 
+void printLevel() {
+	SetConsoleTextAttribute(hConsole, WHITE);
+
+	setCursorLoc(9 + w * 2, 17);
+	cout << "\u2554";
+	for (int i = 0; i < 10; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u2557";
+
+	for (int i = 0; i < 4; i++) {
+		setCursorLoc(9 + w * 2, 18 + i);
+		cout << "\u2551";
+		setCursorLoc(20 + w * 2, 18 + i);
+		cout << "\u2551";
+	}
+
+	setCursorLoc(9 + w * 2, 22);
+	cout << "\u255A";
+	for (int i = 0; i < 10; i++) {
+		cout << "\u2550";
+	}
+	cout << "\u255D";
+
+	setCursorLoc(11 + w * 2, 18);
+	cout << "Level: ";
+	setCursorLoc(11 + w * 2, 19);
+	cout << level;
+	setCursorLoc(11 + w * 2, 20);
+	cout << "Rows: ";
+	setCursorLoc(11 + w * 2, 21);
+	cout << rowsToShow;
+
+}
+
 void fadeRow() {
 	int in_row = 0;
 	for (int i = h - 1; i >= 0; i--) {
@@ -1398,16 +1434,19 @@ void fadeRow() {
 				}
 				
 				rows += in_row;
+				rowsToShow += in_row;
 				points += in_row * 100 * level;
 				in_row = 0;
 			}
 		}
 	}
 
-	if (rows >= 10) {
+	if (rows >= 10 && level < 10) {
 		rows -= 10;
 		level++;
 	}
+
+	printLevel();
 }
 
 void makeShadow() {
@@ -1440,6 +1479,7 @@ void makeShadow() {
 
 	SetConsoleTextAttribute(hConsole, WHITE);
 }
+
 bool gameOver() {
 	int J = 0;
 	for (int i = 0; i < 4; i++) {
