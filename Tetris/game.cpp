@@ -1545,6 +1545,8 @@ void saveRecord() {
 	}
 	scores.close();
 
+	bool isUniqueName = true;
+
 	for (int i = 0; i < recNum; i++) {
 		if (recs[i].user == name) {
 			if (recs[i].point < points) {
@@ -1554,6 +1556,8 @@ void saveRecord() {
 				recs[i].n = w;
 				recs[i].m = h;
 				recs[i].level = level;
+				isUniqueName = false;
+				break;
 			}
 			else if (recs[i].point == points) {
 				if (recs[i].time > now) {
@@ -1563,6 +1567,8 @@ void saveRecord() {
 					recs[i].n = w;
 					recs[i].m = h;
 					recs[i].level = level;
+					isUniqueName = false;
+					break;
 				}
 			}
 		}
@@ -1573,6 +1579,9 @@ void saveRecord() {
 		if (i != 0)
 			saveRec << endl;
 		saveRec << recs[i].user << " " << recs[i].point << " " << recs[i].time << " " << recs[i].n << " " << recs[i].m << " " << recs[i].level;
+	}
+	if (isUniqueName) {
+		saveRec << endl << name << " " << points << " " << now << " " << w << " " << h << " " << level;
 	}
 	saveRec.close();
 }
