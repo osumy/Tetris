@@ -37,6 +37,14 @@ void printLB()
 	system("cls");
 	printBorder();
 
+	int lvl; // level
+	setCursorLoc(3, 2);
+	cout << ">> Enter Level(1-10): ";
+	cin >> lvl;
+
+	system("cls");
+	printBorder();
+
 	int recNum = recordCounter();
 	Record* recs = new Record[recNum];
 
@@ -66,25 +74,27 @@ void printLB()
 	for (int i = 0; i < Width - 6; i++)
 		cout << "\u2505";
 
+	int I = 0;
 	for (int i = 0; i < recNum; i++) {
-		setCursorLoc(3, 5+i);
-		cout << recs[i].user;
+		if (recs[i].level == lvl) {
+			setCursorLoc(3, 5 + I);
+			cout << recs[i].user;
 
-		setCursorLoc(43, 5 + i);
-		cout << recs[i].point;
+			setCursorLoc(43, 5 + I);
+			cout << recs[i].point;
 
-		setCursorLoc(65, 5 + i);
-		cout << recs[i].time;
+			setCursorLoc(65, 5 + I);
+			cout << recs[i].time;
 
-		setCursorLoc(90, 5 + i);
-		cout << recs[i].n << "x" << recs[i].m;
+			setCursorLoc(90, 5 + I);
+			cout << recs[i].n << "x" << recs[i].m;
 
-		setCursorLoc(109, 5 + i);
-		cout << recs[i].level;
+			setCursorLoc(109, 5 + I);
+			cout << recs[i].level;
+			I++;
+		}
 	}
 
-	setCursorLoc(3, 5 + recNum + 2);
-	cout << "Press any key to continue...";
 	_getch();
 }
 
