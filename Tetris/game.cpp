@@ -137,6 +137,7 @@ void game() {
 	if (continueGame) {
 		load();
 		loading();
+		continueGame = false;
 	}
 	
 	else {
@@ -146,6 +147,10 @@ void game() {
 		w = gs.width;
 		name = gs.username;
 		level = gs.level;
+		points = 0;
+		rows = 0;
+		rowsToShow = 0;
+		lastGameTime = 0;
 
 		// loading
 		loading();
