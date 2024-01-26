@@ -455,6 +455,14 @@ void shiftL() {
 void shiftD() {
 	for (int i = h - 1; i >= 0; i--) {
 		for (int j = 0; j < w; j++) {
+			if (board[i][j] == 1 && board[i + 1][j] == 2) {
+				return;
+			}
+		}
+	}
+
+	for (int i = h - 1; i >= 0; i--) {
+		for (int j = 0; j < w; j++) {
 			if (board[i][j] == 1 && board[i + 1][j] != 2) {
 				swap(board[i][j], board[i + 1][j]);
 			}
@@ -490,7 +498,7 @@ void turnR() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 1 < 0 || CM.i + 2 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 2][CM.j] == 2)
+			if (CM.i - 1 < 0 || CM.i + 2 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 2][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -499,7 +507,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 1:
-			if (CM.j - 2 < 0 || CM.j + 1 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j - 2] == 2)
+			if (CM.j - 2 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j - 2] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -508,7 +516,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 2:
-			if (CM.i - 2 < 0 || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 2][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2)
+			if (CM.i - 2 < 0 || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 2][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -517,7 +525,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.j + 2 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j + 2] == 2 || temp[CM.i][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 2 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j + 2] == 2 || temp[CM.i][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -532,7 +540,7 @@ void turnR() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -541,7 +549,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -550,7 +558,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 2:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -559,7 +567,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -574,7 +582,7 @@ void turnR() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -583,7 +591,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -592,7 +600,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 2:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -601,7 +609,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -616,7 +624,7 @@ void turnR() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -625,7 +633,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -634,7 +642,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -643,7 +651,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 3:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -658,7 +666,7 @@ void turnR() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -667,7 +675,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -676,7 +684,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -685,7 +693,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 3:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -700,7 +708,7 @@ void turnR() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -709,7 +717,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -718,7 +726,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -727,7 +735,7 @@ void turnR() {
 			rotateIndex++;
 			break;
 		case 3:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -772,7 +780,7 @@ void turnL() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 2 < 0 || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 2][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2)
+			if (CM.i - 2 < 0 || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 2][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -781,7 +789,7 @@ void turnL() {
 			rotateIndex = 3;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.j + 2 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j + 2] == 2 || temp[CM.i][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 2 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j + 2] == 2 || temp[CM.i][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -790,7 +798,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.i + 2 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 2][CM.j] == 2)
+			if (CM.i - 1 < 0 || CM.i + 2 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 2][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -799,7 +807,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 3:
-			if (CM.j - 2 < 0 || CM.j + 1 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j - 2] == 2)
+			if (CM.j - 2 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j - 2] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -814,7 +822,7 @@ void turnL() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -823,7 +831,7 @@ void turnL() {
 			rotateIndex = 3;
 			break;
 		case 1:
-			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 > w || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j - 1 < 0 || CM.j + 1 >= w || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -832,7 +840,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -841,7 +849,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -856,7 +864,7 @@ void turnL() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -865,7 +873,7 @@ void turnL() {
 			rotateIndex = 3;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -874,7 +882,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -883,7 +891,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -898,7 +906,7 @@ void turnL() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -907,7 +915,7 @@ void turnL() {
 			rotateIndex = 3;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -916,7 +924,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j + 1] == 2 || temp[CM.i + 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -925,7 +933,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -940,7 +948,7 @@ void turnL() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i - 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -949,7 +957,7 @@ void turnL() {
 			rotateIndex = 3;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j - 1] == 2 || temp[CM.i][CM.j + 1] == 2 || temp[CM.i - 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j - 1] = 1;
@@ -958,7 +966,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i - 1][CM.j] == 2 || temp[CM.i + 1][CM.j] == 2 || temp[CM.i + 1][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i - 1][CM.j] = 1;
@@ -967,7 +975,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -982,7 +990,7 @@ void turnL() {
 		switch (rotateIndex)
 		{
 		case 0:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j - 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -991,7 +999,7 @@ void turnL() {
 			rotateIndex = 3;
 			break;
 		case 1:
-			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 > w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2)
+			if (CM.j - 1 < 0 || CM.i - 1 < 0 || CM.j + 1 >= w || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i - 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
@@ -1000,7 +1008,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 2:
-			if (CM.i - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2)
+			if (CM.i - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i + 1][CM.j] == 2 || temp[CM.i - 1][CM.j] == 2 || temp[CM.i][CM.j + 1] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i + 1][CM.j] = 1;
@@ -1009,7 +1017,7 @@ void turnL() {
 			rotateIndex--;
 			break;
 		case 3:
-			if (CM.j - 1 < 0 || CM.j + 1 > w || CM.i + 1 > h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2)
+			if (CM.j - 1 < 0 || CM.j + 1 >= w || CM.i + 1 >= h || temp[CM.i][CM.j + 1] == 2 || temp[CM.i][CM.j - 1] == 2 || temp[CM.i + 1][CM.j] == 2)
 				return;
 			temp[CM.i][CM.j] = 1;
 			temp[CM.i][CM.j + 1] = 1;
