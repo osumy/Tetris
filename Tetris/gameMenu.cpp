@@ -143,12 +143,14 @@ void pressEnter_gameMenu(int choice, bool& remainInWhile) {
         cout << "\u255D";
         printNextShape();
         printPoints();
+        printLevel();
         break;
     case 4:
         remainInWhile = false;
         remainInGame = false;
         printNextShape();
         printPoints();
+        printLevel();
         break;
     case 8:
         remainInWhile = false;

@@ -40,9 +40,9 @@ void printMainMenu() {
 
     printGameLogo();
 
-    string buttons[6] = { "New Game", "Continue", "LeaderBoard", "How to Play", "Settings", "Exit" };
+    string buttons[5] = { "New Game", "Continue", "LeaderBoard", "How to Play", "Exit" };
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 5; i++) {
         printButton(buttons[i]);
     }
 }
@@ -112,13 +112,13 @@ void setCursorLoc(SHORT x, SHORT y) {
 void changeChoice(int& i, bool isUp) {
     if (isUp) {
         if (i == 0)
-            i = 15;
+            i = 12;
         else
             i -= 3;
     }
 
     else {
-        if (i == 15)
+        if (i == 12)
             i = 0;
         else
             i += 3;
@@ -252,11 +252,9 @@ void pressEnter(int choice) {
         printHTP();
         break;
     case 12:
-        //settings();
-        break;
-    case 15:
         setCursorLoc(Width, Height + 2);
         exit(0);
+        break;
         break;
     }
     setCursorLoc(0, 0);

@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <Windows.h>
 #include "menu.h"
 #include "gameMenu.h"
 
@@ -107,7 +108,7 @@ void loading() {
 			Sleep(5);
 		}
 	}
-
+	PlaySound(TEXT("Start.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	Sleep(200);
 }
 
@@ -180,11 +181,11 @@ void game() {
 		shapeRand(shape, CM, shapeIndex);
 		shapeRand(newShape, newCM, newShapeIndex);
 		insertShape();
-
-		printPoints();
-		printNextShape();
-		printLevel();
 	}
+
+	printPoints();
+	printNextShape();
+	printLevel();
 
 	int start = time(NULL);
 
@@ -377,6 +378,7 @@ void fall() {
 			}
 		}
 	}
+	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void shiftR() {
@@ -1507,19 +1509,20 @@ void saveRecord() {
 void printGameOver() {
 	system("cls");
 	SetConsoleTextAttribute(hConsole, RED);
-	setCursorLoc((Width - 100) / 2, 6);
+	PlaySound(TEXT("GameOver.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	setCursorLoc((Width - 106) / 2, 6);
 	cout << "      ::::::::      :::       :::   :::   ::::::::::          ::::::::  :::     ::: :::::::::: :::::::::";
-	setCursorLoc((Width - 100) / 2, 7);
+	setCursorLoc((Width - 106) / 2, 7);
 	cout << "    :+:    :+:   :+: :+:    :+:+: :+:+:  :+:                :+:    :+: :+:     :+: :+:        :+:    :+: ";
-	setCursorLoc((Width - 100) / 2, 8);
+	setCursorLoc((Width - 106) / 2, 8);
 	cout << "   +:+         +:+   +:+  +:+ +:+:+ +:+ +:+                +:+    +:+ +:+     +:+ +:+        +:+    +:+  ";
-	setCursorLoc((Width - 100) / 2, 9);
+	setCursorLoc((Width - 106) / 2, 9);
 	cout << "  :#:        +#++:++#++: +#+  +:+  +#+ +#++:++#           +#+    +:+ +#+     +:+ +#++:++#   +#++:++#:    ";
-	setCursorLoc((Width - 100) / 2, 10);
+	setCursorLoc((Width - 106) / 2, 10);
 	cout << " +#+   +#+# +#+     +#+ +#+       +#+ +#+                +#+    +#+  +#+   +#+  +#+        +#+    +#+    ";
-	setCursorLoc((Width - 100) / 2, 11);
+	setCursorLoc((Width - 106) / 2, 11);
 	cout << "#+#    #+# #+#     #+# #+#       #+# #+#                #+#    #+#   #+#+#+#   #+#        #+#    #+#     ";
-	setCursorLoc((Width - 100) / 2, 12);
+	setCursorLoc((Width - 106) / 2, 12);
 	cout << "########  ###     ### ###       ### ##########          ########      ###     ########## ###    ###      ";
 	Sleep(2500);
 	system("cls");
