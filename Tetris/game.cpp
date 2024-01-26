@@ -1521,14 +1521,11 @@ void makeShadow() {
 }
 
 bool gameOver() {
-	int J = 0;
 	for (int i = 0; i < 4; i++) {
-		for (int j = x; j < x + 4; j++) {
-			if (shape[i][J] == 1 && board[i][j] == 2)
+		for (int j = x - 1; j < x + 4; j++) {
+			if (board[i][j] == 2)
 				return true;
-			J++;
 		}
-		J = 0;
 	}
 	return false;
 }
