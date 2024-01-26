@@ -75,7 +75,6 @@ void printNextShape();
 void printLevel();
 void fadeRow();
 void makeShadow();
-bool gameOver();
 void saveRecord();
 void printGameOver();
 
@@ -240,7 +239,10 @@ void game() {
 		setCursorLoc(11 + w * 2, 4);
 		cout << "Time: ";
 		setCursorLoc(11 + w * 2, 5);
-		cout << now;
+		if (now < 60)
+			cout << now;
+		else
+			cout << now / 60 << ":" << now % 60;
 		setCursorLoc(11 + w * 2, 6);
 		cout << "Points: ";
 		setCursorLoc(11 + w * 2, 7);
@@ -311,17 +313,12 @@ void makeSolidFor(bool& canShiftD) {
 				CM.i = newCM.i;
 				CM.j = newCM.j;
 				shapeIndex = newShapeIndex;
-				if (gameOver()) {
-					saveRecord();
-					remainInGame = false;
-					gameOverBool = true;
-					return;
-				}
 				insertShape();
 				shapeRand(newShape, newCM, newShapeIndex);
 				canShiftD = false;
 				rotateIndex = 0;
-				printNextShape();
+				if (gameOverBool)
+					printNextShape();
 				return;
 			}
 		}
@@ -1059,6 +1056,17 @@ void makeSolid() {
 }
 
 void insertShape() {
+	for (int i = 0; i < 4; i++) {
+		for (int j = x - 1; j < x + 4; j++) {
+			if (board[i][j] == 2) {
+				saveRecord();
+				remainInGame = false;
+				gameOverBool = true;
+				return;
+			}
+		}
+	}
+
 	int J = 0;
 	for (int i = 0; i < 4; i++) {
 		for (int j = x; j < x + 4; j++) {
@@ -1523,16 +1531,6 @@ void makeShadow() {
 			}
 		}
 	}
-}
-
-bool gameOver() {
-	for (int i = 0; i < 4; i++) {
-		for (int j = x - 1; j < x + 4; j++) {
-			if (board[i][j] == 2)
-				return true;
-		}
-	}
-	return false;
 }
 
 void saveRecord() {
