@@ -272,6 +272,8 @@ void game() {
 				system("cls");
 				PlaySound(TEXT("click2.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				pauseMenu();
+				lastGameTime += now;
+				start = time(NULL);
 			}
 		}
 
