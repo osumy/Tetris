@@ -66,6 +66,8 @@ void fadeRow();
 void makeShadow();
 bool gameOver();
 void saveRecord();
+void printGameOver();
+
 
 int** board; // main game board
 int** shape; // shape
@@ -82,7 +84,8 @@ bool remainInGame = true;
 bool exitGame = false;
 bool gameOverBool = false;
 int points = 0;
-int rows = 0, rowsToShow = 0;
+int rows = 0;
+int now = 0;
 
 void loading() {
 	printMainBoarder();
@@ -184,7 +187,6 @@ void game() {
 	}
 
 	int start = time(NULL);
-	int now = 0;
 
 	while (remainInGame) {
 		setCursorLoc(6, 4);
@@ -264,6 +266,9 @@ void game() {
 		gameSave();
 		if (exitGame)
 			exit(1);
+	}
+	else {
+		printGameOver();
 	}
 }
 
@@ -427,7 +432,7 @@ void shiftL() {
 void shiftD() {
 	for (int i = h; i >= 0; i--) {
 		for (int j = 0; j < w; j++) {
-			if (board[i][j] == 2 && board[i - 1][j] == 1) {
+			if (board[i][j] == 1 && board[i + 1][j] == 2) {
 				return;
 			}
 		}
@@ -1484,7 +1489,7 @@ bool gameOver() {
 	int J = 0;
 	for (int i = 0; i < 4; i++) {
 		for (int j = x; j < x + 4; j++) {
-			if (shape[i][J] == 1 && board[i][j] == 1)
+			if (shape[i][J] == 1 && board[i][j] == 2)
 				return true;
 			J++;
 		}
@@ -1492,7 +1497,32 @@ bool gameOver() {
 	}
 	return false;
 }
+
 void saveRecord() {
 	fstream saveRec("leader.txt", ios::app);
-	//saveRec << endl << name << " " << points << " " <<
+	saveRec << endl << name << " " << points << " " << now << " " << w << " " << h << " " << level;
+	saveRec.close();
+}
+
+void printGameOver() {
+	system("cls");
+	SetConsoleTextAttribute(hConsole, RED);
+	setCursorLoc((Width - 100) / 2, 6);
+	cout << "      ::::::::      :::       :::   :::   ::::::::::          ::::::::  :::     ::: :::::::::: :::::::::";
+	setCursorLoc((Width - 100) / 2, 7);
+	cout << "    :+:    :+:   :+: :+:    :+:+: :+:+:  :+:                :+:    :+: :+:     :+: :+:        :+:    :+: ";
+	setCursorLoc((Width - 100) / 2, 8);
+	cout << "   +:+         +:+   +:+  +:+ +:+:+ +:+ +:+                +:+    +:+ +:+     +:+ +:+        +:+    +:+  ";
+	setCursorLoc((Width - 100) / 2, 9);
+	cout << "  :#:        +#++:++#++: +#+  +:+  +#+ +#++:++#           +#+    +:+ +#+     +:+ +#++:++#   +#++:++#:    ";
+	setCursorLoc((Width - 100) / 2, 10);
+	cout << " +#+   +#+# +#+     +#+ +#+       +#+ +#+                +#+    +#+  +#+   +#+  +#+        +#+    +#+    ";
+	setCursorLoc((Width - 100) / 2, 11);
+	cout << "#+#    #+# #+#     #+# #+#       #+# #+#                #+#    #+#   #+#+#+#   #+#        #+#    #+#     ";
+	setCursorLoc((Width - 100) / 2, 12);
+	cout << "########  ###     ### ###       ### ##########          ########      ###     ########## ###    ###      ";
+	Sleep(2500);
+	system("cls");
+	setCursorLoc(0,0);
+	SetConsoleTextAttribute(hConsole, WHITE);
 }
