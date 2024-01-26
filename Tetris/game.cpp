@@ -179,6 +179,7 @@ void game() {
 	}
 
 	int start = time(NULL);
+	int now = 0;
 
 	while (remainInGame) {
 		setCursorLoc(6, 4);
@@ -201,11 +202,13 @@ void game() {
 
 		makeShadow();
 
+		now = time(NULL) - start;
+
 		SetConsoleTextAttribute(hConsole, WHITE);
 		setCursorLoc(11 + w * 2, 4);
 		cout << "Time: ";
 		setCursorLoc(11 + w * 2, 5);
-		cout << time(NULL) - start;
+		cout << now;
 		setCursorLoc(11 + w * 2, 6);
 		cout << "Points: ";
 		setCursorLoc(11 + w * 2, 7);
