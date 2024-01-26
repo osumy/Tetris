@@ -190,6 +190,8 @@ void game() {
 	int start = time(NULL);
 
 	while (remainInGame) {
+		makeShadow();
+		
 		setCursorLoc(6, 4);
 		for (int i = 0; i < h; i++) {
 			setCursorLoc(6, 4 + i);
@@ -202,13 +204,17 @@ void game() {
 					SetConsoleTextAttribute(hConsole, getColor(colors[i][j]));
 					cout << "\u2588\u2588";
 				}
+				else if (board[i][j] == 3) {
+					SetConsoleTextAttribute(hConsole, GRAY);
+					cout << "\u2588\u2588";
+					board[i][j] = 0;
+				}
 				else {
 					cout << "  ";
 				}
 			}
 		}
-
-		makeShadow();
+		
 		now = time(NULL) - start;
 
 		SetConsoleTextAttribute(hConsole, WHITE);
@@ -433,14 +439,6 @@ void shiftL() {
 }
 
 void shiftD() {
-	for (int i = h; i >= 0; i--) {
-		for (int j = 0; j < w; j++) {
-			if (board[i][j] == 1 && board[i + 1][j] == 2) {
-				return;
-			}
-		}
-	}
-
 	for (int i = h - 1; i >= 0; i--) {
 		for (int j = 0; j < w; j++) {
 			if (board[i][j] == 1 && board[i + 1][j] != 2) {
@@ -1479,17 +1477,15 @@ void makeShadow() {
 		}
 	}
 	
-	SetConsoleTextAttribute(hConsole, GRAY);
-	for (int i = 0; i < h; i++) {
-		for (int j = 0; j < w; j++) {
-			if (board[i][j] == 1) {
-				setCursorLoc(6 + j * 2, 3 + i + min_dist);
-				cout << "\u2588\u2588";
+	if (min_dist > 4) {
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+				if (board[i][j] == 1) {
+					board[i + min_dist - 1][j] = 3;
+				}
 			}
 		}
 	}
-
-	SetConsoleTextAttribute(hConsole, WHITE);
 }
 
 bool gameOver() {
