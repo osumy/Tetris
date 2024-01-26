@@ -38,14 +38,17 @@ void pauseMenu() {
         else if (move == 115)
             changeChoice_gameMenu(choice, false);
         else if (move == 27) {
+            PlaySound(TEXT("click2.wav"), NULL, SND_FILENAME | SND_ASYNC);
             pressEnter_gameMenu(choice, remainInWhile);
             continue;
         }
         else if (move == 13) {
+            PlaySound(TEXT("click2.wav"), NULL, SND_FILENAME | SND_ASYNC);
             pressEnter_gameMenu(choice, remainInWhile);
             continue;
         }
         else if (move == 32) {
+            PlaySound(TEXT("click2.wav"), NULL, SND_FILENAME | SND_ASYNC);
             pressEnter_gameMenu(choice, remainInWhile);
             continue;
         }

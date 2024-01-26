@@ -55,6 +55,7 @@ void mainMenu() {
     char move;
     int choice = 0;
     while (true) {
+        
         move = _getch();
         while (move != 119 && move != 115 && move != 72 && move != 80 && move != 27 && move != 13 && move != 32) {
             move = _getch();

@@ -245,6 +245,7 @@ void game() {
 				SetConsoleTextAttribute(hConsole, WHITE);
 				setCursorLoc(0, 0);
 				system("cls");
+				PlaySound(TEXT("click2.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				pauseMenu();
 			}
 		}
@@ -733,6 +734,7 @@ void turnR() {
 	for (int i = 0; i < h; i++)
 		delete[] temp[i];
 	delete[] temp;
+	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void turnL() {
@@ -1014,6 +1016,8 @@ void turnL() {
 	for (int i = 0; i < h; i++)
 		delete[] temp[i];
 	delete[] temp;
+
+	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void makeSolid() {
@@ -1426,7 +1430,7 @@ void fadeRow() {
 				cout << "\u2588\u2588";
 				Sleep(5);
 			}
-			
+			PlaySound(TEXT("LineBurn.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			in_row++;
 		}
 		else {
@@ -1450,6 +1454,7 @@ void fadeRow() {
 
 	if (rows >= 10 && level < 10) {
 		rows -= 10;
+		PlaySound(TEXT("LevelUp.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		level++;
 	}
 
@@ -1528,4 +1533,5 @@ void printGameOver() {
 	system("cls");
 	setCursorLoc(0,0);
 	SetConsoleTextAttribute(hConsole, WHITE);
+	PlaySound(TEXT("main.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
