@@ -84,7 +84,7 @@ bool remainInGame = true;
 bool exitGame = false;
 bool gameOverBool = false;
 int points = 0;
-int rows = 0;
+int rows = 0, rowsToShow;
 int now = 0;
 
 void loading() {
