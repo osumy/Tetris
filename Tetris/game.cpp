@@ -52,8 +52,6 @@ struct Records {
 /////////////////////////////////
 
 GameSettings getGameSettings();
-void getConsoleSize(int& Width, int& Height);
-void pauseMenu();
 void loading();
 void game();
 void load();
@@ -302,9 +300,9 @@ void game() {
 }
 
 void makeSolidFor(bool& canShiftD) {
-	for (int i = h; i >= 0; i--) {
+	for (int i = h-1; i >= 0; i--) {
 		for (int j = 0; j < w; j++) {
-			if (board[i][j] == 2 && board[i - 1][j] == 1) {
+			if (board[i+1][j] == 2 && board[i][j] == 1) {
 				makeSolid();
 				for (int i = 0; i < 4; i++) {
 					for (int j = 0; j < 4; j++)
@@ -391,16 +389,7 @@ void fall() {
 			}
 		}
 	}
-	
-	SetConsoleTextAttribute(hConsole, getColor(shapeIndex));
-	for (int i = h - 1; i >= 0; i--) {
-		for (int j = 0; j < w; j++) {
-			if (board[i][j] == 1) {
-				setCursorLoc(6 + j * 2, 4 + i);
-				cout << "\u2588\u2588";
-			}
-		}
-	}
+
 	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
@@ -1056,18 +1045,21 @@ void makeSolid() {
 }
 
 void insertShape() {
-	for (int i = 0; i < 4; i++) {
-		for (int j = x - 1; j < x + 4; j++) {
-			if (board[i][j] == 2) {
+	int J = 0;
+	for (int i = 0; i < 2; i++) {
+		for (int j = x; j < x + 4; j++) {
+			if (shape[i][J] == 1 && board[i][j] == 2) {
 				saveRecord();
 				remainInGame = false;
 				gameOverBool = true;
 				return;
 			}
+			J++;
 		}
+		J = 0;
 	}
 
-	int J = 0;
+	J = 0;
 	for (int i = 0; i < 4; i++) {
 		for (int j = x; j < x + 4; j++) {
 			if (shape[i][J] == 1)
@@ -1143,16 +1135,6 @@ void shapeRand(int** shape, Location& cm, int& index) {
 		cm.j = x + 1;
 		break;
 	}
-}
-
-void getConsoleSize(int& Width, int& Height) {
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
-
-	GetConsoleScreenBufferInfo(consoleHandle, &bufferInfo);
-
-	Width = bufferInfo.srWindow.Right - bufferInfo.srWindow.Left + 1;
-	Height = bufferInfo.srWindow.Bottom - bufferInfo.srWindow.Top + 1;
 }
 
 int getColor(int index) {
