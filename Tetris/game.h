@@ -7,4 +7,5 @@ void printNextShape();
 void printLevel();
 
 extern int w, h, x;
-extern bool remainInGame, exitGame;
+extern bool remainInGame, exitGame, restart;
+;

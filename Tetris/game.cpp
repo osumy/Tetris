@@ -75,6 +75,7 @@ void fadeRow();
 void makeShadow();
 void saveRecord();
 void printGameOver();
+void restartGame();
 
 
 int** board; // main game board
@@ -96,6 +97,7 @@ int rows = 0, rowsToShow;
 int now = 0;
 int duration = 0;
 int lastGameTime = 0;
+bool restart = false;
 
 void loading() {
 	printMainBoarder();
@@ -274,6 +276,10 @@ void game() {
 				pauseMenu();
 				lastGameTime += now;
 				start = time(NULL);
+				if (restart) {
+					restartGame();
+					restart = false;
+				}
 			}
 		}
 
@@ -1593,4 +1599,60 @@ void printGameOver() {
 	system("cls");
 	setCursorLoc(0,0);
 	SetConsoleTextAttribute(hConsole, WHITE);
+}
+
+void restartGame() {
+	points = 0;
+	rows = 0;
+	rowsToShow = 0;
+	lastGameTime = 0;
+
+	// main board
+	board = new int* [h + 1];
+	for (int i = 0; i <= h; i++) {
+		board[i] = new int[w];
+		for (int j = 0; j < w; j++) {
+			board[i][j] = 0;
+		}
+	}
+	// fill the last row with solid blocks
+	for (int j = 0; j < w; j++) {
+		board[h][j] = 2;
+	}
+
+	// colors board
+	colors = new int* [h];
+	for (int i = 0; i < h; i++) {
+		colors[i] = new int[w];
+		for (int j = 0; j < w; j++) {
+			colors[i][j] = 7;
+		}
+	}
+
+	// shape
+	shape = new int* [4];
+	for (int i = 0; i < 4; i++) {
+		shape[i] = new int[4];
+		for (int j = 0; j < 4; j++)
+			shape[i][j] = 0;
+	}
+
+	// next shape
+	newShape = new int* [4];
+	for (int i = 0; i < 4; i++) {
+		newShape[i] = new int[4];
+		for (int j = 0; j < 4; j++)
+			newShape[i][j] = 0;
+	}
+
+	shapeRand(shape, CM, shapeIndex);
+	shapeRand(newShape, newCM, newShapeIndex);
+
+	insertShape();
+
+	printPoints();
+	printNextShape();
+	printLevel();
+
+	int start = time(NULL);
 }

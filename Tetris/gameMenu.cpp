@@ -16,6 +16,7 @@ void pauseMenu() {
     system("cls");
     printBorder();
     printGameMenuButton("Continue");
+    printGameMenuButton("Restart");
     printGameMenuButton("Save & Exit to Main Menu");
     printGameMenuButton("Save & Exit the Game");
 
@@ -59,13 +60,13 @@ void pauseMenu() {
 void changeChoice_gameMenu(int& i, bool isUp) {
     if (isUp) {
         if (i == 0)
-            i = 8;
+            i = 12;
         else
             i -= 4;
     }
 
     else {
-        if (i == 8)
+        if (i == 12)
             i = 0;
         else
             i += 4;
@@ -77,7 +78,7 @@ void printGameMenuButton(string s) {
     prepareConsoleHandle();
 
     // top
-    setCursorLoc((SHORT)((Width - 30) / 2), (SHORT)(buttonIndex + 9));
+    setCursorLoc((SHORT)((Width - 30) / 2), (SHORT)(buttonIndex + 7));
     buttonIndex++;
     cout << "\u256D";
     for (int i = 0; i < 28; i++)
@@ -85,7 +86,7 @@ void printGameMenuButton(string s) {
     cout << "\u256E";
 
     // button name
-    setCursorLoc((SHORT)((Width - 30) / 2), (SHORT)(buttonIndex + 9));
+    setCursorLoc((SHORT)((Width - 30) / 2), (SHORT)(buttonIndex + 7));
     buttonIndex++;
     cout << "\u2502";
     for (int i = 0; i < floor((28 - len) / 2); i++)
@@ -96,7 +97,7 @@ void printGameMenuButton(string s) {
     cout << "\u2502";
 
     // bottom
-    setCursorLoc((SHORT)((Width - 30) / 2), (SHORT)(buttonIndex + 9));
+    setCursorLoc((SHORT)((Width - 30) / 2), (SHORT)(buttonIndex + 7));
     buttonIndex++;
     cout << "\u2570";
     for (int i = 0; i < 28; i++)
@@ -106,16 +107,16 @@ void printGameMenuButton(string s) {
 }
 
 void clearHoverMarker_gameMenu(int choice) {
-    setCursorLoc((SHORT)(((Width - 30) / 2) - 2), (SHORT)(choice + 10));
+    setCursorLoc((SHORT)(((Width - 30) / 2) - 2), (SHORT)(choice + 8));
     cout << "  ";
-    setCursorLoc((SHORT)(((Width - 30) / 2) + 30), (SHORT)(choice + 10));
+    setCursorLoc((SHORT)(((Width - 30) / 2) + 30), (SHORT)(choice + 8));
     cout << "  ";
 }
 
 void printHoverMarker_gameMenu(int choice) {
-    setCursorLoc((SHORT)(((Width - 30) / 2) - 2), (SHORT)(choice + 10));
+    setCursorLoc((SHORT)(((Width - 30) / 2) - 2), (SHORT)(choice + 8));
     cout << ">>";
-    setCursorLoc((SHORT)(((Width - 30) / 2) + 30), (SHORT)(choice + 10));
+    setCursorLoc((SHORT)(((Width - 30) / 2) + 30), (SHORT)(choice + 8));
     cout << "<<";
 }
 void pressEnter_gameMenu(int choice, bool& remainInWhile) {
@@ -150,12 +151,37 @@ void pressEnter_gameMenu(int choice, bool& remainInWhile) {
         break;
     case 4:
         remainInWhile = false;
+        system("cls");
+        setCursorLoc(5, 3);
+        cout << "\u2554";
+        for (int i = 0; i < w * 2; i++) {
+            cout << "\u2550";
+        }
+        cout << "\u2557";
+
+        for (int i = 0; i < h; i++) {
+            setCursorLoc(5, 4 + i);
+            cout << "\u2551";
+            setCursorLoc(6 + w * 2, 4 + i);
+            cout << "\u2551";
+        }
+
+        setCursorLoc(5, 4 + h);
+        cout << "\u255A";
+        for (int i = 0; i < w * 2; i++) {
+            cout << "\u2550";
+        }
+        cout << "\u255D";
+        restart = true;
+        break;
+    case 8:
+        remainInWhile = false;
         remainInGame = false;
         printNextShape();
         printPoints();
         printLevel();
         break;
-    case 8:
+    case 12:
         remainInWhile = false;
         remainInGame = false;
         exitGame = true;
