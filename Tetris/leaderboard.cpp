@@ -15,10 +15,7 @@ struct Record {
 	int level;
 };
 
-void saveLB()
-{
-
-}
+void leaderBoardSort();
 
 int recordCounter()
 {
@@ -36,6 +33,7 @@ int recordCounter()
 
 void printLB()
 {
+	leaderBoardSort();
 	system("cls");
 	printBorder();
 
@@ -79,7 +77,7 @@ void printLB()
 		cout << recs[i].time;
 
 		setCursorLoc(90, 5 + i);
-		cout << recs[i].m << "x" << recs[i].n;
+		cout << recs[i].n << "x" << recs[i].m;
 
 		setCursorLoc(109, 5 + i);
 		cout << recs[i].level;
@@ -88,4 +86,42 @@ void printLB()
 	setCursorLoc(3, 5 + recNum + 2);
 	cout << "Press any key to continue...";
 	_getch();
+}
+
+void bubbleSort(Record* arr, int n)
+{
+	int i, j;
+	for (i = 0; i < n - 1; i++) {
+		for (j = 0; j < n - i - 1; j++) {
+			if (arr[j].point < arr[j + 1].point) {
+				swap(arr[j], arr[j + 1]);
+			}
+			else if (arr[j].point == arr[j + 1].point) {
+				if (arr[j].time > arr[j + 1].time)
+					swap(arr[j], arr[j + 1]);
+			}
+		}
+	}
+}
+
+void leaderBoardSort() {
+	int recNum = recordCounter();
+	Record* recs = new Record[recNum];
+
+	ifstream scores("leader.txt", ios::in);
+	int i = 0;
+	while (scores >> recs[i].user >> recs[i].point >> recs[i].time >> recs[i].m >> recs[i].n >> recs[i].level)
+	{
+		i++;
+	}
+	bubbleSort(recs, recNum);
+	scores.close();
+	
+	fstream saveRec("leader.txt", ios::out);
+	for (int i = 0; i < recNum; i++) {
+		if (i != 0)
+			saveRec << endl;
+		saveRec << recs[i].user << " " << recs[i].point << " " << recs[i].time << " " << recs[i].n << " " << recs[i].m << " " << recs[i].level;
+	}
+	saveRec.close();
 }
