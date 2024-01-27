@@ -5,13 +5,14 @@
 
 using namespace std;
 
-int buttonIndex = 0;
-void printGameMenuButton(string s);
-void clearHoverMarker_gameMenu(int choice);
-void printHoverMarker_gameMenu(int choice);
-void changeChoice_gameMenu(int& i, bool isUp);
-void pressEnter_gameMenu(int choice, bool& remainInWhile);
+int buttonIndex = 0; // line number of button
+void printGameMenuButton(string s);  // print a menu button
+void clearHoverMarker_gameMenu(int choice); // clear markers
+void printHoverMarker_gameMenu(int choice); // print markers
+void changeChoice_gameMenu(int& i, bool isUp); // go to next or previous option
+void pressEnter_gameMenu(int choice, bool& remainInWhile); // when player presses the space or enter button
 
+// print the pause menu
 void pauseMenu() {
     system("cls");
     printBorder();
@@ -57,6 +58,7 @@ void pauseMenu() {
     }
 }
 
+// go to next or previous option
 void changeChoice_gameMenu(int& i, bool isUp) {
     if (isUp) {
         if (i == 0)
@@ -73,6 +75,7 @@ void changeChoice_gameMenu(int& i, bool isUp) {
     }
 }
 
+// print a menu button
 void printGameMenuButton(string s) {
     int len = s.length();
     prepareConsoleHandle();
@@ -106,6 +109,7 @@ void printGameMenuButton(string s) {
     buttonIndex++;
 }
 
+// clear markers
 void clearHoverMarker_gameMenu(int choice) {
     setCursorLoc((SHORT)(((Width - 30) / 2) - 2), (SHORT)(choice + 8));
     cout << "  ";
@@ -113,12 +117,15 @@ void clearHoverMarker_gameMenu(int choice) {
     cout << "  ";
 }
 
+// print markers
 void printHoverMarker_gameMenu(int choice) {
     setCursorLoc((SHORT)(((Width - 30) / 2) - 2), (SHORT)(choice + 8));
     cout << ">>";
     setCursorLoc((SHORT)(((Width - 30) / 2) + 30), (SHORT)(choice + 8));
     cout << "<<";
 }
+
+// when player presses the space or enter button
 void pressEnter_gameMenu(int choice, bool& remainInWhile) {
     switch (choice)
     {
