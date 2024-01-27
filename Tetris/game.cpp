@@ -11,8 +11,10 @@
 
 using namespace std;
 
+// get handle of the screen to change colors and sizes
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
+// colors code
 const int WHITE = 7;
 const int CYAN = 11;
 const int DARK_BLUE = 1;
@@ -25,6 +27,7 @@ const int GRAY = 8;
 
 struct GameSettings
 {
+	// set configuration to play
 	string username;
 	int width;
 	int height;
@@ -34,11 +37,13 @@ struct GameSettings
 
 struct Location
 {
+	// coordination of blocks
 	int i; // row
 	int j; // column
 };
 
 struct Records {
+	// info to save
 	string user;
 	int point;
 	int time;
@@ -52,28 +57,28 @@ struct Records {
 /////////////////////////////////
 
 GameSettings getGameSettings();
-void loading();
-void game();
-void load();
-void makeSolid();
-void makeSolidFor(bool& canShiftD);
-void fall();
-void shiftR();
-void shiftL();
-void shiftD();
-void turnR();
-void turnL();
-void insertShape();
-void shapeRand(int** shape, Location& cm, int& index);
+void loading(); // load before starting game
+void game(); // main func
+void load(); // load game from previous save
+void makeSolid(); // freeze blocks on the bottom
+void makeSolidFor(bool& canShiftD); // check solidity while shifting down
+void fall(); // fall down the block at once
+void shiftR(); // shift to right
+void shiftL(); // shift to left
+void shiftD(); // move down the block
+void turnR(); // rotate clockwise
+void turnL(); // rotate anticlockwise
+void insertShape(); // insert the new shape on board
+void shapeRand(int** shape, Location& cm, int& index); // create a random shape
 int getColor(int index);
 void gameSave();
 void printMainBoarder();
 void printPoints();
 void printNextShape();
 void printLevel();
-void fadeRow();
-void makeShadow();
-void saveRecord();
+void fadeRow(); // fade a completed row
+void makeShadow(); // show shadow of the blocks on bottom
+void saveRecord(); // save info on exit
 void printGameOver();
 void restartGame();
 
@@ -91,11 +96,11 @@ int level;
 string name;
 bool remainInGame = true;
 bool exitGame = false;
-bool gameOverBool = false;
+bool gameOverBool = false; // becomes true when gameover
 int points = 0;
 int rows = 0, rowsToShow;
 int now = 0;
-int duration = 0;
+int duration = 0; // time in game
 int lastGameTime = 0;
 bool restart = false;
 
@@ -127,7 +132,7 @@ int c = 0; // just one time initialize the seed
 
 void game() {
 	if (c == 0) {
-		srand(static_cast<unsigned int>(time(nullptr)));
+		srand(static_cast<unsigned int>(time(nullptr))); // random seed
 		c++;
 	}
 	int counter = 1;
@@ -193,12 +198,12 @@ void game() {
 		}
 
 		x = (w - 4) / 2;
-
+		// create the first and second shapes
 		shapeRand(shape, CM, shapeIndex);
 		shapeRand(newShape, newCM, newShapeIndex);
 		insertShape();
 	}
-
+	// boxes on the right
 	printPoints();
 	printNextShape();
 	printLevel();
@@ -207,7 +212,7 @@ void game() {
 
 	while (remainInGame) {
 		makeShadow();
-		
+		// print all the blocks on the board
 		setCursorLoc(6, 4);
 		for (int i = 0; i < h; i++) {
 			setCursorLoc(6, 4 + i);
@@ -230,9 +235,9 @@ void game() {
 				}
 			}
 		}
-
+		// set time every loop
 		duration = time(NULL) - start;
-
+		// happens to be used only when started from a loaded game
 		now = duration + lastGameTime;
 		
 		SetConsoleTextAttribute(hConsole, WHITE);
@@ -248,6 +253,7 @@ void game() {
 		setCursorLoc(11 + w * 2, 7);
 		cout << points;
 
+		// get keys and do something
 		if (_kbhit()) {
 			char choice = _getch();
 			if (choice == 's' || choice == 'S') {
@@ -283,6 +289,7 @@ void game() {
 			}
 		}
 
+		// shift down if possible
 		bool canShiftD = true;
 		if (counter % 10 == 0) {
 			makeSolidFor(canShiftD);
@@ -292,7 +299,7 @@ void game() {
 		}
 
 		counter++;
-		Sleep(60 - 4 * level);
+		Sleep(60 - 4 * level); // sleeps based on level
 	}
 	
 	system("cls");
@@ -308,6 +315,7 @@ void game() {
 	}
 }
 
+// insert new shape and checks if shifting down is possible anymore
 void makeSolidFor(bool& canShiftD) {
 	for (int i = h-1; i >= 0; i--) {
 		for (int j = 0; j < w; j++) {
@@ -315,8 +323,9 @@ void makeSolidFor(bool& canShiftD) {
 				makeSolid();
 				for (int i = 0; i < 4; i++) {
 					for (int j = 0; j < 4; j++)
-						shape[i][j] = newShape[i][j];
+						shape[i][j] = newShape[i][j]; // replace the old shape with new one
 				}
+				// shape's center of mass
 				CM.i = newCM.i;
 				CM.j = newCM.j;
 				shapeIndex = newShapeIndex;
@@ -385,7 +394,7 @@ GameSettings getGameSettings() {
 
 void fall() {
 	bool shiftable = true;
-
+	// shift down while possible
 	while (shiftable) {
 		shiftD();
 
@@ -398,13 +407,13 @@ void fall() {
 			}
 		}
 	}
-
+	// play sound when it reaches down
 	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void shiftR() {
 	bool shiftable = true;
-
+	// checks if shifting is possible
 	for (int i = 0; i < h; i++) {
 		for (int j = w - 1; j >= 0; j--) {
 			if (board[i][j] == 1) {
@@ -429,7 +438,7 @@ void shiftR() {
 
 void shiftL() {
 	bool shiftable = true;
-
+	// chekcs if shifting is possible
 	for (int i = 0; i < h; i++) {
 		for (int j = 0; j < w; j++) {
 			if (board[i][j] == 1) {
@@ -453,6 +462,7 @@ void shiftL() {
 }
 
 void shiftD() {
+	// won't let the shape break into parts
 	for (int i = h - 1; i >= 0; i--) {
 		for (int j = 0; j < w; j++) {
 			if (board[i][j] == 1 && board[i + 1][j] == 2) {
@@ -475,9 +485,10 @@ void shiftD() {
 
 
 void turnR() {
+	// square won't rotate
 	if (shapeIndex == 1)
 		return;
-
+	// makes a copy of main board to check
 	int** temp = new int* [h + 1];
 	for (int i = 0; i <= h; i++) {
 		temp[i] = new int[w];
@@ -750,7 +761,8 @@ void turnR() {
 		for (int j = 0; j < w; j++)
 			board[i][j] = temp[i][j];
 	}
-
+	
+	// delete copied board
 	for (int i = 0; i < h; i++)
 		delete[] temp[i];
 	delete[] temp;
@@ -758,9 +770,10 @@ void turnR() {
 }
 
 void turnL() {
+	// square won't rotate
 	if (shapeIndex == 1)
 		return;
-
+	// makes a copy of main board
 	int** temp = new int* [h + 1];
 	for (int i = 0; i <= h; i++) {
 		temp[i] = new int[w];
@@ -1033,6 +1046,7 @@ void turnL() {
 			board[i][j] = temp[i][j];
 	}
 
+	// delete the copied board
 	for (int i = 0; i < h; i++)
 		delete[] temp[i];
 	delete[] temp;
@@ -1041,6 +1055,7 @@ void turnL() {
 }
 
 void makeSolid() {
+	// turns every 1 to 2
 	for (int i = 0; i < h; i++) {
 		for (int j = 0; j < w; j++) {
 			if (board[i][j] == 1) {
@@ -1049,11 +1064,13 @@ void makeSolid() {
 			}
 		}
 	}
-
+	// checks if row is completed
 	fadeRow();
 }
 
 void insertShape() {
+	// checks if game is over
+	// if it can't insert the shape game will be over
 	int J = 0;
 	for (int i = 0; i < 2; i++) {
 		for (int j = x; j < x + 4; j++) {
@@ -1067,7 +1084,7 @@ void insertShape() {
 		}
 		J = 0;
 	}
-
+	// iterates through the shape array and put ones into the main board
 	J = 0;
 	for (int i = 0; i < 4; i++) {
 		for (int j = x; j < x + 4; j++) {
@@ -1085,7 +1102,7 @@ void shapeRand(int** shape, Location& cm, int& index) {
 		for (int j = 0; j < 4; j++)
 			shape[i][j] = 0;
 	}
-
+	// choose a random shape
 	int randNum = rand() % 7;
 	index = randNum;
 	switch (randNum)
@@ -1260,6 +1277,7 @@ void load() {
 		}
 	}
 
+	// turn board rows into integer
 	string* boardRows = new string[h + 1];
 	for (int i = 0; i <= h; i++) {
 		getline(loadGame, boardRows[i]);
@@ -1277,6 +1295,7 @@ void load() {
 		}
 	}
 
+	// color rows into integer
 	string* colorRows = new string[h];
 	for (int i = 0; i < h; i++) {
 		getline(loadGame, colorRows[i]);
@@ -1293,6 +1312,7 @@ void load() {
 			shape[i][j] = 0;
 	}
 
+	// shape rows into integer
 	string* shapeRows = new string[4];
 	for (int i = 0; i < 4; i++) {
 		getline(loadGame, shapeRows[i]);
@@ -1311,7 +1331,7 @@ void load() {
 			newShape[i][j] = 0;
 	}
 
-	x = (w - 4) / 2;
+	x = (w - 4) / 2; // find the middle of the board
 	shapeRand(newShape, newCM, newShapeIndex);
 }
 
@@ -1446,9 +1466,9 @@ void printLevel() {
 }
 
 void fadeRow() {
-	int in_row = 0;
+	int in_row = 0; // measure how many rows are complete
 	for (int i = h - 1; i >= 0; i--) {
-		bool is_full = true;
+		bool is_full = true; // checks if row is full or not
 		for (int j = 0; j < w; j++) {
 			if (board[i][j] != 2) {
 				is_full = false;
@@ -1467,6 +1487,7 @@ void fadeRow() {
 			PlaySound(TEXT("LineBurn.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			in_row++;
 		}
+		// fade previous rows as soon as reaches an empty one
 		else {
 			if (in_row > 0) {
 				for (int k = i; k >= 0; k--) {
@@ -1478,14 +1499,15 @@ void fadeRow() {
 					}
 				}
 				
-				rows += in_row;
-				rowsToShow += in_row;
-				points += in_row * 100 * level;
+				rows += in_row; // rows mod 10
+				rowsToShow += in_row; // total rows completed
+				points += in_row * 100 * level; // player gets 100 * level points if complete a row
 				in_row = 0;
 			}
 		}
 	}
 
+	// upgrade the level
 	if (rows >= 10 && level < 10) {
 		rows -= 10;
 		PlaySound(TEXT("LevelUp.wav"), NULL, SND_FILENAME | SND_ASYNC);
@@ -1497,7 +1519,7 @@ void fadeRow() {
 
 void makeShadow() {
 	int min_dist = h;
-
+	// measure how distance to go down to make the shadow of shape
 	for (int i = 0; i < h; i++) {
 		for (int j = 0; j < w; j++) {
 			if (board[i][j] == 1) {
@@ -1512,7 +1534,7 @@ void makeShadow() {
 			}
 		}
 	}
-	
+	// put 3 for shadow on main board
 	if (min_dist > 4) {
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
@@ -1525,6 +1547,7 @@ void makeShadow() {
 }
 
 void saveRecord() {
+	// make an array of records to put all records
 	int recNum = recordCounter();
 	Records* recs = new Records[recNum];
 
@@ -1536,7 +1559,7 @@ void saveRecord() {
 	}
 	scores.close();
 
-	bool isUniqueName = true;
+	bool isUniqueName = true; // if the name is new, create a new profile
 
 	for (int i = 0; i < recNum; i++) {
 		if (recs[i].user == name) {
@@ -1565,6 +1588,7 @@ void saveRecord() {
 		}
 	}
 
+	// save the new record in the file
 	fstream saveRec("leader.txt", ios::out);
 	for (int i = 0; i < recNum; i++) {
 		if (i != 0)
