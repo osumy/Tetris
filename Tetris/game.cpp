@@ -370,7 +370,7 @@ void makeSolidFor(bool& canShiftD) {
 				shapeRand(newShape, newCM, newShapeIndex);
 				canShiftD = false;
 				rotateIndex = 0;
-				if (gameOverBool)
+				if (!gameOverBool)
 					printNextShape();
 				return;
 			}
