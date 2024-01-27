@@ -1600,6 +1600,7 @@ void saveRecord() {
 
 	for (int i = 0; i < recNum; i++) {
 		if (recs[i].user == name) {
+			isUniqueName = false;
 			if (recs[i].point < points) {
 				recs[i].user = name;
 				recs[i].point = points;
@@ -1607,7 +1608,6 @@ void saveRecord() {
 				recs[i].n = w;
 				recs[i].m = h;
 				recs[i].level = level;
-				isUniqueName = false;
 				break;
 			}
 			else if (recs[i].point == points) {
@@ -1618,7 +1618,6 @@ void saveRecord() {
 					recs[i].n = w;
 					recs[i].m = h;
 					recs[i].level = level;
-					isUniqueName = false;
 					break;
 				}
 			}
