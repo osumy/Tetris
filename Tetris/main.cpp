@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "menu.h"
 
+// just for sound player
 #pragma comment(lib, "winmm.lib")
 
 using namespace std;
