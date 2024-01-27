@@ -22,12 +22,13 @@ void printEmptyLine(); // print a new empty line (just for border)
 void printGameLogo(); // print a big Tetris
 void printButton(string s); // print a game button
 void changeChoice(int& i, bool isUp);
-void clearHoverMarker(int choice);
-void printHoverMarker(int choice);
+void clearHoverMarker(int choice); // clear some marker around bottuns
+void printHoverMarker(int choice); // print some marker around bottuns
 void pressEnter(int choice);
 void hideCursor(bool isHide);
 
 void printBorder() {
+    // print border around the screen
     printFL_Line(true);
     for (int i = 0; i < Height - 2; i++)
         printEmptyLine();
@@ -50,7 +51,7 @@ void printMainMenu() {
 
 void mainMenu() {
     prepareConsoleHandle();
-
+    
     printMainMenu();
 
     char move;
@@ -93,6 +94,7 @@ void mainMenu() {
 }
 
 void prepareConsoleHandle() {
+    // get the handle in order to get width and height of screen
     consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
 
@@ -267,6 +269,7 @@ void pressEnter(int choice) {
     printMainMenu();
 }
 
+// start to print how to play using sleepy print
 void skipHTP() {
     sleepyPrintHTP("How to Play!", 60);
     setCursorLoc(5, 3);
@@ -294,6 +297,7 @@ void skipHTP() {
     _getch();
 }
 
+// print all of it at once if a key is pressed
 void printHTP() {
     system("cls");
 
