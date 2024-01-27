@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// a structure for leader board records
 struct Record {
 	string user;
 	int point;
@@ -15,8 +16,10 @@ struct Record {
 	int level;
 };
 
+// sort the records
 void leaderBoardSort();
 
+// returns the number of records
 int recordCounter()
 {
 	ifstream scores("leader.txt", ios::in);
@@ -31,6 +34,7 @@ int recordCounter()
 	return i;
 }
 
+// prints the leader board
 void printLB()
 {
 	leaderBoardSort();
@@ -106,6 +110,7 @@ void printLB()
 	_getch();
 }
 
+// bubbleSort algorithm for sorting the records
 void bubbleSort(Record* arr, int n)
 {
 	int i, j;
@@ -122,6 +127,7 @@ void bubbleSort(Record* arr, int n)
 	}
 }
 
+// sort the records
 void leaderBoardSort() {
 	int recNum = recordCounter();
 	Record* recs = new Record[recNum];
