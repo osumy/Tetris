@@ -70,9 +70,9 @@ void turnR(); // rotate clockwise
 void turnL(); // rotate anticlockwise
 void insertShape(); // insert the new shape on board
 void shapeRand(int** shape, Location& cm, int& index); // create a random shape
-int getColor(int index);
-void gameSave();
-void printMainBoarder();
+int getColor(int index); // returns the color code
+void gameSave(); // save the current game
+void printMainBoarder(); //
 void printPoints();
 void printNextShape();
 void printLevel();
