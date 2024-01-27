@@ -305,12 +305,49 @@ void game() {
 	system("cls");
 	setCursorLoc(0, 0);
 	PlaySound(TEXT("main.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 	if (!gameOverBool) {
 		gameSave();
+
+		for (int i = 0; i < h + 1; i++) {
+			delete[] board[i];
+		}
+		delete[] board;
+		for (int i = 0; i < h; i++) {
+			delete[] colors[i];
+		}
+		delete[] colors;
+		for (int i = 0; i < 4; i++) {
+			delete[] shape[i];
+		}
+		delete[] shape;
+		for (int i = 0; i < 4; i++) {
+			delete[] newShape[i];
+		}
+		delete[] newShape;
+
 		if (exitGame)
 			exit(1);
 	}
 	else {
+
+		for (int i = 0; i < h + 1; i++) {
+			delete[] board[i];
+		}
+		delete[] board;
+		for (int i = 0; i < h; i++) {
+			delete[] colors[i];
+		}
+		delete[] colors;
+		for (int i = 0; i < 4; i++) {
+			delete[] shape[i];
+		}
+		delete[] shape;
+		for (int i = 0; i < 4; i++) {
+			delete[] newShape[i];
+		}
+		delete[] newShape;
+
 		printGameOver();
 	}
 }
