@@ -206,13 +206,18 @@ void printButton(string s) {
 // print a big Tetris
 void printGameLogo() {
     string logo[5] = { "  ______     __       _     ",
-                      " /_  __/__  / /______(_)____",
-                      "  / / / _ \\/ __/ ___/ / ___/",
-                      " / / /  __/ /_/ /  / (__  ) ",
+                                " /_  __/__  / /______(_)____",
+                                "  / / / _ \\/ __/ ___/ / ___/",
+                            " / / /  __/ /_/ /  / (__  ) ",
                       "/_/  \\___/\\__/_/  /_/____/  " };
     //cout << "\u001b[33m";
     for (int i = 0; i < 5; i++) {
-        setCursorLoc((SHORT)((Width - 28) / 2), (SHORT)(i + 1));
+        setCursorLoc((SHORT)((Width - 9) / 2), (SHORT)(1));
+        cout << "Depressed";
+    }
+
+    for (int i = 0; i < 5; i++) {
+        setCursorLoc((SHORT)((Width - 28) / 2), (SHORT)(i + 2));
         cout << logo[i];
     }
     //cout << "\u001b[0m";                         
