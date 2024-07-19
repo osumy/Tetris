@@ -16,7 +16,11 @@ Terminal version of iconic game "Tetris" with C++
 
 ## Screenshots
 
-
+![menu](Tetris/screenshots/menu.png)
+![game](Tetris/screenshots/game.png)
+![leader-board](Tetris/screenshots/leaderboard.png)
+![how-to-play](Tetris\screenshots/howto.png)
+![game-over](Tetris\screenshots/over.png)
 
 ## Installation
 
