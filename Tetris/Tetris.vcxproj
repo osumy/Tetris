@@ -134,15 +134,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C26495; C4244</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </DisableSpecificWarnings>
     </ClCompile>
     <ClCompile Include="gameMenu.cpp">
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </DisableSpecificWarnings>
     </ClCompile>
     <ClCompile Include="leaderboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp">
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C6031; C4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </DisableSpecificWarnings>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
