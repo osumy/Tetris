@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	PlaySound(TEXT("main.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("soundtracks\\main.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	mainMenu();
 	return 0;
 }

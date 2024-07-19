@@ -124,7 +124,7 @@ void loading() {
 			Sleep(5);
 		}
 	}
-	PlaySound(TEXT("Start.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("soundtracks\\Start.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	Sleep(200);
 }
 
@@ -304,7 +304,7 @@ void game() {
 	
 	system("cls");
 	setCursorLoc(0, 0);
-	PlaySound(TEXT("main.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("soundtracks\\main.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 	if (!gameOverBool) {
 		gameSave();
@@ -445,7 +445,7 @@ void fall() {
 		}
 	}
 	// play sound when it reaches down
-	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("soundtracks\\Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void shiftR() {
@@ -803,7 +803,7 @@ void turnR() {
 	for (int i = 0; i < h; i++)
 		delete[] temp[i];
 	delete[] temp;
-	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("soundtracks\\Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void turnL() {
@@ -1088,7 +1088,7 @@ void turnL() {
 		delete[] temp[i];
 	delete[] temp;
 
-	PlaySound(TEXT("Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("soundtracks\\Fall.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void makeSolid() {
@@ -1547,7 +1547,7 @@ void fadeRow() {
 	// upgrade the level
 	if (rows >= 10 && level < 10) {
 		rows -= 10;
-		PlaySound(TEXT("LevelUp.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		PlaySound(TEXT("soundtracks\\LevelUp.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		level++;
 	}
 
