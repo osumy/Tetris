@@ -278,7 +278,7 @@ void game() {
 				SetConsoleTextAttribute(hConsole, WHITE);
 				setCursorLoc(0, 0);
 				system("cls");
-				PlaySound(TEXT("click2.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				PlaySound(TEXT("soundtracks\\click2.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				pauseMenu();
 				lastGameTime += now;
 				start = time(NULL);
@@ -1521,7 +1521,7 @@ void fadeRow() {
 				cout << "\u2588\u2588";
 				Sleep(5);
 			}
-			PlaySound(TEXT("LineBurn.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			PlaySound(TEXT("soundtracks\\LineBurn.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			in_row++;
 		}
 		// fade previous rows as soon as reaches an empty one
@@ -1640,7 +1640,7 @@ void saveRecord() {
 void printGameOver() {
 	system("cls");
 	SetConsoleTextAttribute(hConsole, RED);
-	PlaySound(TEXT("GameOver.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("soundtracks\\GameOver.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	setCursorLoc((Width - 106) / 2, 6);
 	cout << "      ::::::::      :::       :::   :::   ::::::::::          ::::::::  :::     ::: :::::::::: :::::::::";
 	setCursorLoc((Width - 106) / 2, 7);
