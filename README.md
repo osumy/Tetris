@@ -39,3 +39,6 @@ Install the game by downloading release from this page, and extract the zip file
 
 ## Acknowledgements
 
+- [W3Schools C++ tutorial](https://www.w3schools.com/cpp/)
+- [SBU Mathematics and Computer Science Department](https://mathsci.sbu.ac.ir/)
+- [Shayan Shahrabi (As Mentor)](https://github.com/ShayanShahrabi)
