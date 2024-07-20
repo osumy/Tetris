@@ -30,6 +30,17 @@ Install the game by downloading release from this page, and extract the zip file
     cd path
     Tetris
 ```
+
+## Dependencies
+
+Windows 10 or later
+
+You should enable Unicode UTF-8 to experience game. To do so:
+
+Control Panel -> Region -> Adminstrative -> Change System Locale... -> Use Unicode UTF-8 for worldwide language support
+
+You should check it and now game is ready to play!
+
     
 ## Authors
 
