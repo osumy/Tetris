@@ -33,7 +33,8 @@ Install the game by downloading release from this page, and extract the zip file
 
 ## Dependencies
 
-Windows 10 or later
+- Windows 10 or later
+- Micorsoft visual C++
 
 You should enable Unicode UTF-8 to experience game. To do so:
 
