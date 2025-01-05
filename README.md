@@ -1,5 +1,14 @@
-
 # Tetris
+
+<!-- Badges -->
+![GitHub forks](https://img.shields.io/github/forks/osumy/Tetris)
+![GitHub Repo stars](https://img.shields.io/github/stars/osumy/Tetris)
+![Static Badge](https://img.shields.io/badge/C++-blue)
+[![GitHub issues](https://badgen.net/github/issues/osumy/Tetris)](https://GitHub.com/osumy/Tetris/issues)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/osumy/Tetris.svg)](https://GitHub.com/osumy/Tetris/pull)
+![GitHub contributors](https://img.shields.io/github/contributors/osumy/Tetris)
+![Static Badge](https://img.shields.io/badge/version-1.0.2-purple)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 Terminal version of iconic game "Tetris" with C++
 
