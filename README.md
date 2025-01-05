@@ -10,7 +10,7 @@
 ![Static Badge](https://img.shields.io/badge/version-1.0.2-purple)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
-Terminal version of iconic game "Tetris" with C++
+Terminal version of iconic game "**Tetris**" with **C++**
 
 
 ## Features
