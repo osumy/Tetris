@@ -10,7 +10,7 @@
 ![Static Badge](https://img.shields.io/badge/version-1.0.2-purple)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
-Terminal version of iconic game "**Tetris**" with **C++**
+This project is a classic "**Tetris**" game developed in **C++** for the command-line interface. Players control falling Tetrominoes, rotating and positioning them to form complete horizontal lines, which then disappear, earning points. Demonstrating essential programming concepts while providing an engaging puzzle experience in a text-based environment!
 
 
 ## Features
